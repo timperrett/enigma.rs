@@ -1,6 +1,6 @@
 
-// use std::option::Option;
 use std::char;
+use std::collections::HashMap;
 
 // a single sequence of A to Z letters, 26 chars long
 fn ordered() -> Vec<char> {
@@ -21,6 +21,17 @@ fn next_letter(after: char) -> char {
         return char::from_u32(nxt).unwrap() // unwrap with no guard; bit sketchy
     }
 }
+
+pub fn with_ordered_index(input: &str) -> HashMap<char,char> {
+    let mut mapping: HashMap<char,char> = HashMap::new();
+    let alphabet = ordered();
+    for (i, v) in input.chars().enumerate(){ // zip with index
+        mapping.insert(alphabet[i], v);
+    }
+    
+    mapping
+}
+
 
 // use std::iter;
 // use rand::{Rng, thread_rng};
@@ -51,6 +62,17 @@ mod tests {
     fn test_next_letter() {
         assert_eq!('Q', next_letter('P'));
         assert_eq!('A', next_letter('Z'));
+    }
+
+    #[test]
+    fn test_with_ordered_index() {
+        let e1 = hashmap!{
+            'A' => 'X',
+            'B' => 'Y',
+            'C' => 'Z',
+        };
+
+        assert_eq!(e1, with_ordered_index("XYZ"));
     }
 
 }

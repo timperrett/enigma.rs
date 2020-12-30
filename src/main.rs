@@ -1,6 +1,8 @@
 
 mod enigma;
 
+#[macro_use] extern crate maplit;
+
 use std::io;
 use std::io::BufRead;
 
